@@ -8,6 +8,7 @@ import 'package:sqflite_example/exp_test_page.dart';
 import 'package:sqflite_example/manual_test_page.dart';
 import 'package:sqflite_example/src/dev_utils.dart';
 
+import 'json_test_page.dart';
 import 'model/main_item.dart';
 import 'open_test_page.dart';
 import 'raw_test_page.dart';
@@ -61,6 +62,9 @@ const String testExpRoute = '/test/exp';
 /// Deprecated test page.
 const String testDeprecatedRoute = '/test/deprecated';
 
+/// Json test page.
+const String testJsonRoute = '/test/json';
+
 class _MyAppState extends State<MyApp> {
   var routes = <String, WidgetBuilder>{
     '/test': (BuildContext context) => MyHomePage(),
@@ -74,6 +78,7 @@ class _MyAppState extends State<MyApp> {
     testExceptionRoute: (BuildContext context) => ExceptionTestPage(),
     testExpRoute: (BuildContext context) => ExpTestPage(),
     testDeprecatedRoute: (BuildContext context) => DeprecatedTestPage(),
+    testJsonRoute: (BuildContext context) => const JsonTestPage(),
   };
 
   @override
@@ -120,9 +125,16 @@ class MyHomePage extends StatefulWidget {
         route: testExceptionRoute));
     _items.add(MainItem('Manual tests', 'Tests that requires manual execution',
         route: testManualRoute));
-    _items.add(MainItem('Deprecated test',
-        'Keeping some old tests for deprecated functionalities',
-        route: testDeprecatedRoute));
+    _items.add(
+      MainItem('Deprecated test',
+          'Keeping some old tests for deprecated functionalities',
+          route: testDeprecatedRoute),
+    );
+    _items.add(
+      MainItem(
+          'JSON test', 'Make tests for JSON serialization and deserialization',
+          route: testJsonRoute),
+    );
 
     // Uncomment to view all logs
     //Sqflite.devSetDebugModeOn(true);
