@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.5.0'
+        classpath 'com.android.tools.build:gradle:8.5.1'
     }
 }
 
@@ -35,15 +35,29 @@ android {
         namespace 'com.tekartik.sqflite'
     }
     compileSdk 34
+    ndkVersion "29.0.14206865"
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    packagingOptions {
+        // Ensure native libraries support 16KB page size
+        jniLibs {
+            useLegacyPackaging = false
+        }
     }
 
     defaultConfig {
         minSdk 19
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        
+        // Support for 16KB page size
+        ndk {
+            // Ensure all ABIs are built with 16KB page size support
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+        }
     }
     lintOptions {
         disable 'InvalidPackage'
